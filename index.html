@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Car Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #ff7f50;
+        }
+        section {
+            height: 100vh;
+            position: relative;
+        }
+        #hero {
+            background-image: url('car-hero.jpg'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh;
+            text-align: center;
+        }
+        #hero h2 {
+            font-size: 48px;
+            color: #fff;
+            line-height: 1.4;
+            animation: fadeIn 2s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .parallax {
+            background: url('parallax-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .parallax h2 {
+            font-size: 36px;
+            color: #fff;
+            animation: slideIn 2s ease-in-out 1s forwards, glow 3s infinite 3s;
+        }
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #fff;
+            }
+            50% {
+                text-shadow: 0 0 20px #ff7f50;
+            }
+            100% {
+                text-shadow: 0 0 5px #fff;
+            }
+        }
+        .details {
+            display: flex;
+            padding: 100px 10%;
+            justify-content: space-between;
+            background-color: #111;
+        }
+        .details .image {
+            width: 45%;
+        }
+        .details .text {
+            width: 45%;
+        }
+        .details .text h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            animation: fadeInUp 2s ease-out 2s forwards, gradientEffect 3s infinite 4s;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes gradientEffect {
+            0% {
+                background: linear-gradient(to right, #ff7f50, #ff4500);
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+            50% {
+                background: linear-gradient(to left, #ff4500, #ff7f50);
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+            100% {
+                background: linear-gradient(to right, #ff7f50, #ff4500);
+                -webkit-background-clip: text;
+                color: transparent;
+            }
+        }
+        .details .text p {
+            font-size: 18px;
+            line-height: 1.6;
+            animation: fadeInUp 3s ease-out 3s forwards;
+        }
+        .details .button-container {
+            margin-top: 20px;
+        }
+        .details .button-container button {
+            background-color: #ff7f50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .details .button-container button:hover {
+            background-color: #ff4500;
+        }
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        #music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 20;
+        }
+        #music-controls button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 36px;
+            color: #ccc; /* 默认颜色 */
+            transition: color 0.3s ease;
+        }
+        #music-controls .paused {
+            color: rgba(204, 204, 204, 0.5); /* 暂停时颜色 */
+        }
+        .fa-music {
+            transition: transform 0.3s ease;
+        }
+        #music-controls .paused .fa-music {
+            opacity: 0.5; /* 暂停时变淡 */
+            transform: scale(0.8); /* 停止时缩小 */
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="background-music" autoplay loop>
+        <source src="background-music.mp3" type="audio/mpeg">
+        您的浏览器不支持音频标签。
+    </audio>
+
+    <div id="music-controls">
+        <button id="play-pause"><i class="fas fa-music"></i></button>
+    </div>
+
+    <header>
+        <h1>Monitoring Devices Showcase<br/>设计一览</h1>
+        <nav>
+            <a href="#hero">Home</a>&nbsp;&nbsp;
+            <a href="#features">Features</a>&nbsp;&nbsp;
+            <a href="#contact">Contact</a>&nbsp;&nbsp;
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h2>The combination of technology and ecological concepts<br/>科技与生态理念的结合</h2>
+    </section>
+
+    <div class="parallax">
+        <h2>Innovation Meets Life</h2>
+    </div>
+
+    <section id="features" class="details">
+        <div class="image">
+            <img src="car-interior.jpg" alt="Car Interior" style="width: 100%; border-radius: 10px;">
+        </div>
+        <div class="text">
+            <h3>Smarthome And Traditional Monitoring Devices</h3>
+            <p>
+                我们的理念。。将监测设备智能化/家居化，带进人们的生活中。。
+            </p>
+            <!-- 添加按钮 -->
+            <div class="button-container">
+                <button onclick="window.location.href='product-overview.html'">查看产品一览</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax">
+        <h2>畅想我们的未来，期盼健康生活。</h2>
+    </section>
+
+    <section class="details">
+        <div class="text">
+            <h3>Innovative Technology</h3>
+            <p>
+                人工智能与传统设备的一次结合与碰撞。。
+            </p>
+            <!-- 添加按钮 -->
+            <div class="button-container">
+                <button onclick="window.location.href='product-overview.html'">了解详情</button>
+            </div>
+        </div>
+        <div class="image">
+            <img src="car-tech.jpg" alt="Car Technology" style="width: 100%; border-radius: 10px;">
+        </div>
+    </section>
+
+    <section id="contact" class="details">
+        <div class="text">
+            <h3>Contact Us<br/>联系我们</h3>
+            <p>
+                如果您想对我们的项目作品了解更多，可以通过以下的联系方式联系我们：
+            </p><br/>
+            <p>Email: <br/>&nbsp;&nbsp;&nbsp;&nbsp;luoxifuyicun@gmail.com</p><br/>
+            <p>Phone:<br/> &nbsp;&nbsp;&nbsp;&nbsp;(+86) 138-0000-0000</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>2024 Luxury Car Showcase. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        const playPauseBtn = document.getElementById('play-pause');
+
+        playPauseBtn.addEventListener('click', function () {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.classList.remove('paused');
+            } else {
+                audio.pause();
+                playPauseBtn.classList.add('paused');
+            }
+        });
+
+        // 确保滚动效果
+        const links = document.querySelectorAll('nav a');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+               const target = document.querySelector(this.getAttribute('href')); 
+			   target.scrollIntoView({ behavior: 'smooth' });
+			});
+		}); 
+		</script>
+	</body> 
+</html>
